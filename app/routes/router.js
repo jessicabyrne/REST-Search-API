@@ -10,5 +10,5 @@ module.exports = app => {
    * Product API
    */
 
-  app.get(apiPrefix + '/products/findone/:keyword', products.findOne);
+  app.get(apiPrefix + '/products/findone/:keyword', products.getProducts);
 };
