@@ -42,21 +42,20 @@ const delay = (t, val) => {
 };
 
 exports.getProducts = async (req, res) => {
-  const keyword = 'backpack';
-  let productObject;
-  let productInformation = [];
-  let selectedProducts = [];
+  const keyword = req.params.keyword;
+  let productIds = [];
 
   for (let id of productids) {
-    productObject = await getProduct(id);
-    await delay(100);
-    productObject = JSON.parse(productObject); //convert string to JSON object
-    shortDescription = productObject['shortDescription']; //get the short description
-    productId = productObject['itemId'];
-    if (shortDescription.search(keyword) > 0) {
-      selectedProducts = selectedProducts.concat(productId);
+    response = await getProduct(id);
+    await delay(1000);
+    productObject = JSON.parse(response); //convert string to JSON object
+    longDescription = productObject['longDescription']; //get the long description
+    itemId = productObject['itemId'];
+
+    //check if keyword is in description
+    if (longDescription.toLowerCase().indexOf(keyword) >= 0) {
+      productIds = productIds.concat(itemId);
     }
-    productInformation.push(productObject);
   }
-  res.send(selectedProducts);
+  res.send(productIds);
 };
