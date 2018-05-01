@@ -2,8 +2,8 @@
  * Controller for products list
  */
 
-//const url = require('config').get('walmartURL');
-const url = 'http://api.walmartlabs.com/v1/items/';
+const url = require('../../config/default.json'); //with a larger project, keep config with all the routes to reference
+//const url = 'http://api.walmartlabs.com/v1/items/';
 const suffix = '?format=json&apiKey=kjybrqfdgp3u4yv2qzcnjndj';
 const http = require('http');
 const requestPromise = require('request-promise');
@@ -29,7 +29,7 @@ const productids = [
 ];
 
 const getProduct = async productid => {
-  return requestPromise(url + productid + suffix);
+  return requestPromise(url.walmartURL + productid + suffix);
 };
 
 //write a simple function to delay call
@@ -54,9 +54,8 @@ exports.getProducts = async (req, res) => {
       res
         .status(err.status || 500)
         .json({ status: err.status, message: err.message });
-      console.log(err);
     }
-    await delay(20); //delay in milliseconds
+    await delay(200); //delay in milliseconds
     const productObject = JSON.parse(response); //convert string to JSON object
     const longDescription = productObject['longDescription']; //get the long description
     const itemId = productObject['itemId'];
