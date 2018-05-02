@@ -5,7 +5,7 @@ jest.mock('request-promise', () => jest.fn());
 const requestPromise = require('request-promise');
 
 describe('Test our api call', () => {
-  it('should response the GET method', async () => {
+  it('should respond to the GET method', async () => {
     requestPromise
       .mockImplementation(() => {
         return JSON.stringify({
