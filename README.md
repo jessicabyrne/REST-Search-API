@@ -10,7 +10,11 @@ Finds productIDs by keyword.
 
 Upon successful API call, it will return an ARRAY of itemIDs for products that have the keyword in the long description, otherwise it will return an error.
 
+To get the metadata, [Walmart's Product API](https://developer.walmartlabs.com/docs) was used with an API key. In this branch, one call was made with multiple item ids.
+
 ## Starting the project
+
+Make sure you are in the /src folder
 
 ```bash
 node server.js

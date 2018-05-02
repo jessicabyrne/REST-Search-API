@@ -3,33 +3,14 @@
  */
 
 const url = require('../../config/default.json'); //with a larger project, keep config with all the routes to reference
-//const url = 'http://api.walmartlabs.com/v1/items/';
-const suffix = '?format=json&apiKey=kjybrqfdgp3u4yv2qzcnjndj';
 const http = require('http');
 const requestPromise = require('request-promise');
-const productids = [
-  14225185,
-  14225186,
-  14225188,
-  14225187,
-  39082884,
-  30146244,
-  12662817,
-  34890820,
-  19716431,
-  42391766,
-  35813552,
-  40611708,
-  40611825,
-  36248492,
-  44109840,
-  23117408,
-  35613901,
-  42248076
-];
+const exportedProductIds = require('../productids')
+const productIdArray = exportedProductIds.productids
+
 
 const getProduct = async productid => {
-  return requestPromise(url.walmartURL + productid + suffix);
+  return requestPromise(url.walmartURL + productid + url.apiKey);
 };
 
 //write a simple function to delay call
@@ -44,8 +25,7 @@ const delay = (t, val) => {
 exports.getProducts = async (req, res) => {
   const keyword = req.params.keyword;
   let productIds = [];
-
-  for (let id of productids) {
+  for (let id of productIdArray) {
     let response;
 
     try {
@@ -55,7 +35,7 @@ exports.getProducts = async (req, res) => {
         .status(err.status || 500)
         .json({ status: err.status, message: err.message });
     }
-    await delay(200); //delay in milliseconds
+    await delay(20); //delay in milliseconds
     const productObject = JSON.parse(response); //convert string to JSON object
     const longDescription = productObject['longDescription']; //get the long description
     const itemId = productObject['itemId'];
