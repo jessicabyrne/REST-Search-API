@@ -18,11 +18,11 @@ node server.js
 
 (point your browser at http://localhost:8080)
 
-## Sample request:
+## Sample Usage:
 
-http://localhost:8080/api/productids/backpack
+Sample Request: http://localhost:8080/api/productids/backpack
 
-Sample response: [ 35813552, 23117408, 35613901 ]
+Sample Response: [ 35813552, 23117408, 35613901 ]
 
 ## Running Tests
 
@@ -31,3 +31,5 @@ npm test
 ```
 
 This will start `jest`
+
+![Test Coverage](https://raw.githubusercontent.com/jessicabyrne/REST-Search-API/master/src/testcoverage.png)
