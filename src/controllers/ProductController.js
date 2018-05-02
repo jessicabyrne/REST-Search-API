@@ -10,7 +10,6 @@ const getProduct = () => {
   const productIds = productIdArray.productids.join();
   return requestPromise(url.walmartURL + productIds + url.apiKey);
 };
-console.log(productIdArray)
 exports.getProducts = async (req, res) => {
   const keyword = req.params.keyword;
   let response;

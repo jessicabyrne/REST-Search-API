@@ -1,3 +1,4 @@
 {
-  "walmartURL": "http://api.walmartlabs.com/v1/items/"
+  "walmartURL": "http://api.walmartlabs.com/v1/items?ids=",
+  "apiKey": "&apiKey=kjybrqfdgp3u4yv2qzcnjndj"
 }
