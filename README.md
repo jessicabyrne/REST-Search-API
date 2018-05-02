@@ -32,4 +32,10 @@ npm test
 
 This will start `jest`
 
-![Test Coverage](https://raw.githubusercontent.com/jessicabyrne/REST-Search-API/master/src/testcoverage.png)
+To run a coverage report
+
+```bash
+npm test --  --coverage
+```
+
+![Test Coverage](https://raw.githubusercontent.com/jessicabyrne/REST-Search-API/Solution-Assuming-One-ID-per-API-Call/src/testcoverage.png)
