@@ -2,12 +2,12 @@
  * Controller for products list
  */
 
-const url = require('../../config/default.json'); //with a larger project, keep config with all the routes to reference
-//const url = 'http://api.walmartlabs.com/v1/items/';
-const suffix = '?format=json&apiKey=kjybrqfdgp3u4yv2qzcnjndj';
+//const url = require('../../config/default.json'); //with a larger project, keep config with all the routes to reference
+const url = 'http://api.walmartlabs.com/v1/items?ids=';
+const suffix = '&apiKey=kjybrqfdgp3u4yv2qzcnjndj';
 const http = require('http');
 const requestPromise = require('request-promise');
-const productids = [
+const productIdArray = [
   14225185,
   14225186,
   14225188,
@@ -28,42 +28,28 @@ const productids = [
   42248076
 ];
 
-const getProduct = async productid => {
-  return requestPromise(url.walmartURL + productid + suffix);
-};
-
-//write a simple function to delay call
-const delay = (t, val) => {
-  return new Promise(function(resolve) {
-    setTimeout(function() {
-      resolve(val);
-    }, t);
-  });
+const getProduct = () => {
+  const productIds = productIdArray.join();
+  return requestPromise(url + productIds + suffix);
 };
 
 exports.getProducts = async (req, res) => {
   const keyword = req.params.keyword;
-  let productIds = [];
-
-  for (let id of productids) {
-    let response;
-
-    try {
-      response = await getProduct(id);
-    } catch (err) {
-      res
-        .status(err.status || 500)
-        .json({ status: err.status, message: err.message });
+  let response;
+  try {
+    response = await getProduct();
+    const itemsObject = JSON.parse(response); //convert string to JSON object
+    const items = itemsObject['items']; //get the array to iterate over
+    let productIds = [];
+    for (let item in items) {
+      if (items[item].longDescription.toLowerCase().indexOf(keyword) >= 0) {
+        productIds = productIds.concat(items[item].itemId);
+      }
     }
-    await delay(200); //delay in milliseconds
-    const productObject = JSON.parse(response); //convert string to JSON object
-    const longDescription = productObject['longDescription']; //get the long description
-    const itemId = productObject['itemId'];
-
-    //check if keyword is in description, if it is, add id to array
-    if (longDescription.toLowerCase().indexOf(keyword) >= 0) {
-      productIds = productIds.concat(itemId);
-    }
+    res.send(productIds);
+  } catch (err) {
+    res
+      .status(err.status || 500)
+      .json({ status: err.status, message: err.message });
   }
-  res.send(productIds);
 };
