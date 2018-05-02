@@ -12,6 +12,8 @@ Upon successful API call, it will return an ARRAY of itemIDs for products that h
 
 ## Starting the project
 
+To run the server, make sure you are in the src directory
+
 ```bash
 node server.js
 ```
