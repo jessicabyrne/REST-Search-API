@@ -42,4 +42,4 @@ To run a coverage report
 npm test --  --coverage
 ```
 
-![Test Coverage](https://raw.githubusercontent.com/jessicabyrne/REST-Search-API/Solution-Assuming-One-ID-per-API-Call/src/testcoverage.png)
+![Test Coverage](https://raw.githubusercontent.com/jessicabyrne/REST-Search-API/switching-express-for-hapi/src/testcoverage.png)
