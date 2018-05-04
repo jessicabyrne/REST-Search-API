@@ -20,6 +20,7 @@
     "url": "git+https://github.com/jessicabyrne/REST-Search-API.git"
   },
   "author": "Jessica Byrne",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/jessicabyrne/REST-Search-API/issues"
   },
