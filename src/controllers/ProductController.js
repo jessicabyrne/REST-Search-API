@@ -32,7 +32,7 @@ exports.getProducts = async (req, res) => {
     } catch (err) {
       return res.response(err).code(err.status || 500);
     }
-    await delay(200); //delay in milliseconds
+    await delay(100); //delay in milliseconds
     const productObject = JSON.parse(response); //convert string to JSON object
     const longDescription = productObject['longDescription']; //get the long description
     const itemId = productObject['itemId'];
