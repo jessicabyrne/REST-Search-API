@@ -26,3 +26,5 @@ process.on('unhandledRejection', err => {
 });
 
 init();
+
+module.exports = server;

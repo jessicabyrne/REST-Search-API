@@ -10,10 +10,10 @@
     "async": "^2.6.0",
     "babel-preset-es2015": "^6.24.1",
     "body-parser": "^1.0.2",
+    "hapi": "^17.4.0",
     "request": "^2.85.0",
     "request-promise": "^4.2.2"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jessicabyrne/REST-Search-API.git"

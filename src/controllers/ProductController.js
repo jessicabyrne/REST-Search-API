@@ -30,9 +30,7 @@ exports.getProducts = async (req, res) => {
     try {
       response = await getProduct(id);
     } catch (err) {
-      res
-        .status(err.status || 500)
-        .json({ status: err.status, message: err.message });
+      return res.response(err).code(err.status || 500);
     }
     await delay(200); //delay in milliseconds
     const productObject = JSON.parse(response); //convert string to JSON object
