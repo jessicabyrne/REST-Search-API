@@ -1,15 +1,28 @@
 // call the packages we need
-const express = require('express'); // call express
-const app = express(); // define our app using express
-const routes = require('./routes/router'); //importing route
+'use strict';
 
-const port = process.env.PORT || 8080; // set our port
+const Hapi = require('hapi');
+const products = require('./controllers/ProductController');
 
-// START THE SERVER
-// =============================================================================
-
-routes(app); //register the routes
-app.listen(port, () => {
-  console.log('Magic happens on port ' + port);
+const server = Hapi.server({
+  port: 8080,
+  host: 'localhost'
 });
-module.exports = app;
+
+server.route({
+  method: 'GET',
+  path: '/api/productids/{keyword}',
+  handler: products.getProducts
+});
+
+const init = async () => {
+  await server.start();
+  console.log(`Magic happens on port: ${server.info.uri}`);
+};
+
+process.on('unhandledRejection', err => {
+  console.log(err);
+  process.exit(1);
+});
+
+init();

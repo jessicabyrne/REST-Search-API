@@ -5,9 +5,8 @@
 const url = require('../../config/default.json'); //with a larger project, keep config with all the routes to reference
 const http = require('http');
 const requestPromise = require('request-promise');
-const exportedProductIds = require('../productids')
-const productIdArray = exportedProductIds.productids
-
+const exportedProductIds = require('../productids');
+const productIdArray = exportedProductIds.productids;
 
 const getProduct = async productid => {
   return requestPromise(url.walmartURL + productid + url.apiKey);
@@ -35,7 +34,7 @@ exports.getProducts = async (req, res) => {
         .status(err.status || 500)
         .json({ status: err.status, message: err.message });
     }
-    await delay(20); //delay in milliseconds
+    await delay(200); //delay in milliseconds
     const productObject = JSON.parse(response); //convert string to JSON object
     const longDescription = productObject['longDescription']; //get the long description
     const itemId = productObject['itemId'];
@@ -45,5 +44,5 @@ exports.getProducts = async (req, res) => {
       productIds = productIds.concat(itemId);
     }
   }
-  res.send(productIds);
+  return productIds;
 };

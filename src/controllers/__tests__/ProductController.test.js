@@ -1,3 +1,5 @@
+import { productids } from '../../productids';
+
 const request = require('supertest');
 const server = require('../../server');
 
@@ -19,10 +21,9 @@ describe('Test our api call', () => {
           longDescription: 'This has the word backpack in it!'
         });
       });
-    const res = await request(server).get('/api/productids/backpack');
-    expect(res.text).toEqual('[2]');
-    expect(res.body).toBeInstanceOf(Array);
-    expect(res.statusCode).toBe(200);
+    const productids = await request(server).get('/api/productids/backpack');
+    expect(productids.toEqual('[2]'));
+    expect(productids.toBeInstanceOf(Array));
   });
 
   it('tests error with async/await throwing a specific error', async () => {
