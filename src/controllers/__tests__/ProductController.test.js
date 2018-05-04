@@ -19,11 +19,14 @@ describe('Test our api call', () => {
           longDescription: 'This has the word backpack in it!'
         });
       });
-    server.inject({ method: 'GET', url: '/api/productids/backpack' }, res => {
-      expect(res.text).toEqual('[2]');
-      expect(res.body).toBeInstanceOf(Array);
-      expect(res.statusCode).toBe(200);
+    const res = await server.inject({
+      method: 'GET',
+      url: '/api/productids/backpack'
     });
+
+    expect(res.result).toEqual([2]);
+    expect(res.result).toBeInstanceOf(Array);
+    expect(res.statusCode).toBe(200);
   });
 
   it('tests error with async/await throwing a specific error', async () => {

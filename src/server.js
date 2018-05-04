@@ -20,11 +20,6 @@ const init = async () => {
   console.log(`Magic happens on port: ${server.info.uri}`);
 };
 
-process.on('unhandledRejection', err => {
-  console.log(err);
-  process.exit(1);
-});
-
 init();
 
 module.exports = server;

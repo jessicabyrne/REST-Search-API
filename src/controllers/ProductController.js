@@ -29,17 +29,17 @@ exports.getProducts = async (req, res) => {
 
     try {
       response = await getProduct(id);
+      await delay(100); //delay in milliseconds
+      const productObject = JSON.parse(response); //convert string to JSON object
+      const longDescription = productObject['longDescription']; //get the long description
+      const itemId = productObject['itemId'];
+
+      //check if keyword is in description, if it is, add id to array
+      if (longDescription.toLowerCase().indexOf(keyword) >= 0) {
+        productIds = productIds.concat(itemId);
+      }
     } catch (err) {
       return res.response(err).code(err.status || 500);
-    }
-    await delay(100); //delay in milliseconds
-    const productObject = JSON.parse(response); //convert string to JSON object
-    const longDescription = productObject['longDescription']; //get the long description
-    const itemId = productObject['itemId'];
-
-    //check if keyword is in description, if it is, add id to array
-    if (longDescription.toLowerCase().indexOf(keyword) >= 0) {
-      productIds = productIds.concat(itemId);
     }
   }
   return productIds;
